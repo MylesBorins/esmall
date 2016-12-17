@@ -11,7 +11,8 @@ Does a little reggae
 ```bash
 $ npm install --global esmall
 $ esmall input.js // output to stdout
-$ esmall input.js -o output.js.min // output to file
+$ esmall input.js -o output.min.js // output to file
+$ cat path/to/file.js | esmall > this-works.min.js
 ```
 
 ## Current API
@@ -32,7 +33,6 @@ I know 🎉
 
 * stream interface for api
 * sync interface for api
-* pipe interface for cli
 * embed babili
 
 ### License

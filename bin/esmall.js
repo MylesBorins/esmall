@@ -18,6 +18,7 @@
 var fs = require('fs');
 var path = require('path');
 
+var concat = require('concat-stream');
 var argv = require('yargs')
   .alias('o', 'output')
   .alias('h', 'help')
@@ -30,7 +31,7 @@ var argv = require('yargs')
 var esmall = require('../lib');
 var {success, error} = require('./logger');
 
-if (argv._.length === 0) {
+if (process.stdin.isTTY && argv._.length === 0) {
   error('You must provide an input file!');
   process.exit(1);
 }
@@ -46,9 +47,9 @@ function resolve(pathName) {
   return resolved;
 }
 
-function convertFile(err, data) {
+function minifyText(err, data) {
   if (err) {
-    error('Reading the file failed', err);
+    error('Something has gone wrong', err);
   }
   esmall(data.toString(), handleMinified);
 }
@@ -70,14 +71,25 @@ function cleanup(err) {
   process.exit(0);
 }
 
-fs.open(resolve(argv._[0]), 'r', function(err, fd) {
-  if (err) {
-    if (err.code === 'ENOENT') {
-      error(`${argv._[0]} does not exist`);
-      process.exit(1);
-    } else {
-      throw err;
+if (process.stdin.isTTY) {
+  fs.open(resolve(argv._[0]), 'r', function(err, fd) {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        error(`${argv._[0]} does not exist`);
+        process.exit(1);
+      } else {
+        throw err;
+      }
     }
-  }
-  fs.readFile(fd, convertFile);
-});
+    fs.readFile(fd, minifyText);
+  });
+}
+
+
+
+else {
+  process.stdin.pipe(concat((data) => {
+    minifyText(null, data);
+  }));
+}
+
