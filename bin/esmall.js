@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
+/* eslint no-console: 0 */
+
 var fs = require('fs');
 
-var async = require('async');
-var chalk = require('chalk');
 var argv = require('yargs')
   .alias('o', 'output')
   .alias('h', 'help')
@@ -28,11 +28,11 @@ var argv = require('yargs')
   .help()
   .argv;
 
-var path = require('path');
+// var path = require('path');
 
 var esmall = require('../');
 var {success, error} = require('./logger');
-var outputFile
+
 if (argv._.length === 0) {
   error('You must provide an input file!');
   process.exit(1);
@@ -40,7 +40,7 @@ if (argv._.length === 0) {
 
 function resolve(pathName) {
   try {
-    var resolved = path.resolve(argv._[0]);
+    var resolved = require.resolve(pathName);
   }
   catch (err) {
     error('Resolving the path has failed', err);
@@ -51,7 +51,7 @@ function resolve(pathName) {
 
 function convertFile(err, data) {
   if (err) {
-    error('Reading the file failed', err)
+    error('Reading the file failed', err);
   }
   esmall(data.toString(), handleMinified);
 }
@@ -61,20 +61,21 @@ function handleMinified(err, minified) {
     console.log(minified);
     process.exit(0);
   }
-  fs.writeFile(resolve(argv.o), minified, cleanup)
+  fs.writeFile(resolve(argv.o), minified, cleanup);
 }
 
 function cleanup(err) {
   if (err) {
     error('Writing to file failed', err);
-    proces.exit(1);
+    process.exit(1);
   }
-  
+  success('It worked 🎉');
+  process.exit(0);
 }
 
 fs.open(resolve(argv._[0]), 'r', function(err, fd) {
   if (err) {
-    if (err.code === "ENOENT") {
+    if (err.code === 'ENOENT') {
       error(`${argv._[0]} does not exist`);
       process.exit(1);
     } else {

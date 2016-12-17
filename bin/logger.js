@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+/* eslint no-console: 0 */
+
 var chalk = require('chalk');
 
 function error(text, stack) {

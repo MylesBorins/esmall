@@ -19,7 +19,7 @@ function reggae(code) {
 
 function isNotEmpty(code) {
   return !((code === '') || (code === ' '));
-};
+}
 
 function minify(code, cb) {
   if (typeof code !== 'string') {
@@ -29,12 +29,15 @@ function minify(code, cb) {
   try {
     // remove comments
     code = code.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');
-    
+
     code = code.split('\n');
     code = code.filter(isNotEmpty);
+
     // remove whitespace at the begining and end of each line
     code = code.map(reggae);
+
     code = code.join(' ');
+
     // remove any spaces after a semi colon
     code = code.replace(/;\s+/g, ';');
   }
