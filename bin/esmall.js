@@ -45,11 +45,6 @@ var output = argv.o ?
 
 var esmall = new Esmall();
 
-esmall.on('error', (err) => {
-  error('Minification failed', err);
-  process.exit(1);
-});
-
 pump(input, esmall, output, (err) => {
   if (err) {
     error('It did not work', err);
