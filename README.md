@@ -6,12 +6,20 @@
 
 Does a little reggae
 
+## Using the cli
+
+```bash
+$ npm install --global esmall
+$ esmall input.js // output to stdout
+$ esmall input.js -o output.js.min // output to file
+```
+
 ## Current API
 
 ```js
 var esmall = require('esmall');
 esmall('code', (e, min) => {
-  if (e) return console.error(newError(e));
+  if (e) return console.error(new Error(e));
   console.log(min);
 });
 ```
