@@ -16,7 +16,7 @@
  */
 
 var fs = require('fs');
-var path = require('path');
+var resolve = require('path').resolve;
 
 var pump = require('pump');
 var argv = require('yargs')
@@ -35,17 +35,6 @@ var {success, error} = require('./logger');
 if (process.stdin.isTTY && argv._.length === 0) {
   error('You must provide an input file!');
   process.exit(1);
-}
-
-function resolve(pathName) {
-  try {
-    var resolved = path.resolve(pathName);
-  }
-  catch (err) {
-    error('Resolving the path has failed', err);
-    process.exit(1);
-  }
-  return resolved;
 }
 
 var input = process.stdin.isTTY ?
