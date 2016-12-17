@@ -44,11 +44,24 @@ var licensedCode = `
      var a = '123';
      var b = '456'; // this comment should be removed
      console.log('a + b');      
-`
+`;
+
+var multiSpaceSemiColon = `
+var a = '123';      var b = '456'; // this comment should be removed
+console.log('a + b');  
+`;
 
 test('basic test', (t) => {
   t.plan(2);
   esmall(code, (err, result) => {
+    t.error(err);
+    t.equals(result, expected, 'we should be minified');
+  });
+});
+
+test('more than one space after semi', (t) => {
+  t.plan(2);
+  esmall(multiSpaceSemiColon, (err, result) => {
     t.error(err);
     t.equals(result, expected, 'we should be minified');
   });

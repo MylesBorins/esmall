@@ -35,8 +35,8 @@ function minify(code, cb) {
     // remove whitespace at the begining and end of each line
     code = code.map(reggae);
     code = code.join(' ');
-    // remove the space after a semi colon
-    code = code.replace(/; /g, ';');
+    // remove any spaces after a semi colon
+    code = code.replace(/;\s+/g, ';');
   }
   catch (e) {
     cb(new Error(e));
