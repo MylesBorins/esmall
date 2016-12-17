@@ -29,7 +29,7 @@ var argv = require('yargs')
   .argv;
 
 var Esmall = require('../lib');
-var esmall = new Esmall();
+
 var {success, error} = require('./logger');
 
 if (process.stdin.isTTY && argv._.length === 0) {
@@ -48,48 +48,43 @@ function resolve(pathName) {
   return resolved;
 }
 
-function minifyText(err, data) {
-  if (err) {
-    error('Something has gone wrong', err);
-    process.exit(1);
-  }
-  esmall.minify(data.toString(), handleMinified);
-}
+var input;
+var output;
+var esmall = new Esmall();
 
-function handleMinified(err, minified) {
-  if (!argv.o) {
-    process.stdout.write(minified);
-    process.exit(0);
-  }
-  fs.writeFile(resolve(argv.o), minified, cleanup);
-}
-
-function cleanup(err) {
-  if (err) {
-    error('Writing to file failed', err);
-    process.exit(1);
-  }
-  success('It worked 🎉');
-  process.exit(0);
-}
+esmall.on('error', (err) => {
+  error('Minification failed', err);
+  process.exit(1);
+})
 
 if (process.stdin.isTTY) {
-  fs.open(resolve(argv._[0]), 'r', function(err, fd) {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        error(`${argv._[0]} does not exist`);
-        process.exit(1);
-      } else {
-        throw err;
-      }
-    }
-    fs.readFile(fd, minifyText);
+  input = fs.createReadStream(resolve(argv._[0]));
+  input.on('error', (err) => {
+    error('Error reading file', err);
   });
 }
-
 else {
-  process.stdin.pipe(concat((data) => {
-    minifyText(null, data);
-  }));
+  input = process.stdin;
 }
 
+if (argv.o) {
+  output = fs.createWriteStream(resolve(argv.o));
+  output.on('error', (err) => {
+    error('Error writing file', err);
+    process.exit(1)
+  })
+}
+else {
+  output = process.stdout;
+}
+
+input
+  .pipe(esmall)
+  .pipe(output)
+  .on('end', _ => {
+    success('It worked 🎉');
+  })
+  .on('error', (err) => {
+    error('It did not work', err);
+    process.exit(1);
+  });
