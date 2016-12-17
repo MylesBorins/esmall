@@ -27,6 +27,19 @@ var code = `
 
 var expected = 'var a=213,b=123,c=123456,d=2134;console.log(a+b*c/d);';
 
+var esSix = `
+class Polygon {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+
+var poly = new Polygon(100, 100);
+`;
+
+var expectedSix = 'class Polygon{constructor(a,b){this.height=a,this.width=b}}var poly=new Polygon(100,100);';
+
 var licensedCode = `
 /* Copyright 2016 Myles Borins
  *
@@ -58,10 +71,18 @@ test('basic test', (t) => {
   });
 });
 
+test('actual es6', (t) => {
+  t.plan(2);
+  esmall(esSix, (err, result) => {
+    t.error(err);
+    t.equals(result, expectedSix, 'we should be minified and still be es6');
+  });
+});
+
 test('no license', (t) => {
   t.plan(2);
   esmall(licensedCode, (err, result) => {
     t.error(err);
-    t.equals(result, expected, 'we should be minified');
+    t.equals(result, expected, 'we should be minified with no comments');
   });
 });
