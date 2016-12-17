@@ -27,11 +27,15 @@ function minify(code, cb) {
     return false;
   }
   try {
+    // remove comments
     code = code.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');
+    
     code = code.split('\n');
     code = code.filter(isNotEmpty);
+    // remove whitespace at the begining and end of each line
     code = code.map(reggae);
     code = code.join(' ');
+    // remove the space after a semi colon
     code = code.replace(/; /g, ';');
   }
   catch (e) {
