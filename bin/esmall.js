@@ -86,8 +86,6 @@ if (process.stdin.isTTY) {
   });
 }
 
-
-
 else {
   process.stdin.pipe(concat((data) => {
     minifyText(null, data);
