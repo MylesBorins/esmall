@@ -1,0 +1,20 @@
+{
+  "name": "esmall",
+  "version": "1.0.0",
+  "description": "Lol... I just wrap babili",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap test/"
+  },
+  "author": "Myles Borins <myles.borins@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": "git+https://github.com/TheAlphaNerd/esmall.git",
+  "dependencies": {
+    "babili": "0.0.9",
+    "yargs": "^6.5.0"
+  },
+  "devDependencies": {
+    "tap": "^8.0.1"
+  },
+  "engines": { "node" : ">=4.0.0" }
+}
