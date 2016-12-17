@@ -28,7 +28,8 @@ var argv = require('yargs')
   .help()
   .argv;
 
-var esmall = require('../lib');
+var Esmall = require('../lib');
+var esmall = new Esmall();
 var {success, error} = require('./logger');
 
 if (process.stdin.isTTY && argv._.length === 0) {
@@ -52,7 +53,7 @@ function minifyText(err, data) {
     error('Something has gone wrong', err);
     process.exit(1);
   }
-  esmall(data.toString(), handleMinified);
+  esmall.minify(data.toString(), handleMinified);
 }
 
 function handleMinified(err, minified) {

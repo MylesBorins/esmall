@@ -15,7 +15,8 @@
 
 var test = require('tap').test;
 
-var esmall = require('../lib/');
+var Esmall = require('../lib/');
+var esmall = new Esmall();
 
 var simple = `
   var a = 213;
@@ -65,7 +66,7 @@ var licensedCode = `
 
 test('basic test', (t) => {
   t.plan(2);
-  esmall(simple, (err, result) => {
+  esmall.minify(simple, (err, result) => {
     t.error(err);
     t.equals(result, expected, 'we should be minified');
   });
@@ -73,7 +74,7 @@ test('basic test', (t) => {
 
 test('actual es6', (t) => {
   t.plan(2);
-  esmall(esSix, (err, result) => {
+  esmall.minify(esSix, (err, result) => {
     t.error(err);
     t.equals(result, expectedSix, 'we should be minified and still be es6');
   });
@@ -81,7 +82,7 @@ test('actual es6', (t) => {
 
 test('no license', (t) => {
   t.plan(2);
-  esmall(licensedCode, (err, result) => {
+  esmall.minify(licensedCode, (err, result) => {
     t.error(err);
     t.equals(result, expected, 'we should be minified with no comments');
   });

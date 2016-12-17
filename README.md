@@ -18,8 +18,11 @@ $ cat path/to/file.js | esmall > this-works.min.js
 ## Current API
 
 ```js
-var esmall = require('esmall');
-esmall('code', (e, min) => {
+var Esmall = require('esmall');
+var esmall = new Esmall({
+  // put babili options here
+});
+esmall.minify('code', (e, min) => {
   if (e) return console.error(new Error(e));
   console.log(min);
 });
