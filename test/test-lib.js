@@ -65,25 +65,8 @@ var licensedCode = `
 `;
 
 test('basic test', (t) => {
-  t.plan(2);
-  esmall.minify(simple, (err, result) => {
-    t.error(err);
-    t.equals(result, expected, 'we should be minified');
-  });
-});
-
-test('actual es6', (t) => {
-  t.plan(2);
-  esmall.minify(esSix, (err, result) => {
-    t.error(err);
-    t.equals(result, expectedSix, 'we should be minified and still be es6');
-  });
-});
-
-test('no license', (t) => {
-  t.plan(2);
-  esmall.minify(licensedCode, (err, result) => {
-    t.error(err);
-    t.equals(result, expected, 'we should be minified with no comments');
-  });
+  t.equals(esmall.minify(simple), expected, 'a simple example');
+  t.equals(esmall.minify(esSix), expectedSix, 'an es6 class');
+  t.equals(esmall.minify(licensedCode), expected, 'comments should be stripped');
+  t.done();
 });
