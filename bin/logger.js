@@ -25,7 +25,9 @@ function error(text, stack) {
 }
 
 function success(text) {
-  console.log(`\n${chalk.green('Success: ')} ${text}\n`);
+  if (process.stdin.isTTY) {
+    console.log(`\n${chalk.green('Success: ')} ${text}\n`);
+  }
 }
 
 module.exports = {

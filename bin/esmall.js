@@ -18,6 +18,7 @@
 var fs = require('fs');
 var path = require('path');
 
+var pump = require('pump');
 var argv = require('yargs')
   .alias('o', 'output')
   .alias('h', 'help')
@@ -47,8 +48,12 @@ function resolve(pathName) {
   return resolved;
 }
 
-var input;
-var output;
+var input = process.stdin.isTTY ?
+  fs.createReadStream(resolve(argv._[0])) : process.stdin;
+
+var output = argv.o ?
+  fs.createWriteStream(resolve(argv.o)) : process.stdout;
+
 var esmall = new Esmall();
 
 esmall.on('error', (err) => {
@@ -56,34 +61,13 @@ esmall.on('error', (err) => {
   process.exit(1);
 });
 
-if (process.stdin.isTTY) {
-  input = fs.createReadStream(resolve(argv._[0]));
-  input.on('error', (err) => {
-    error('Error reading file', err);
-  });
-}
-else {
-  input = process.stdin;
-}
-
-if (argv.o) {
-  output = fs.createWriteStream(resolve(argv.o));
-  output.on('error', (err) => {
-    error('Error writing file', err);
-    process.exit(1);
-  });
-}
-else {
-  output = process.stdout;
-}
-
-input
-  .pipe(esmall)
-  .pipe(output)
-  .on('end', () => {
-    success('It worked 🎉');
-  })
-  .on('error', (err) => {
+pump(input, esmall, output, (err) => {
+  if (err) {
     error('It did not work', err);
     process.exit(1);
-  });
+  }
+  if (argv.o) {
+    success('It worked 🎉');
+  }
+});
+
