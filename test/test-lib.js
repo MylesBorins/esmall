@@ -17,7 +17,7 @@ var test = require('tap').test;
 
 var esmall = require('../lib/');
 
-var code = `
+var simple = `
   var a = 213;
   var b = 123;
   var c = 123456;
@@ -65,7 +65,7 @@ var licensedCode = `
 
 test('basic test', (t) => {
   t.plan(2);
-  esmall(code, (err, result) => {
+  esmall(simple, (err, result) => {
     t.error(err);
     t.equals(result, expected, 'we should be minified');
   });
