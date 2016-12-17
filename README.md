@@ -39,5 +39,5 @@ I know 🎉
 
 Apache v2.0
 
-[babili][https://github.com/babel/babili]
-[reggae][https://twitter.com/thealphanerd/status/764133752905883649]
+[babili]: https://github.com/babel/babili "The babili website"
+[reggae]: https://twitter.com/thealphanerd/status/764133752905883649 "Some silly twitter stuff"
