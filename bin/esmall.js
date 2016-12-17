@@ -18,6 +18,7 @@
 /* eslint no-console: 0 */
 
 var fs = require('fs');
+var path = require('path');
 
 var argv = require('yargs')
   .alias('o', 'output')
@@ -40,7 +41,7 @@ if (argv._.length === 0) {
 
 function resolve(pathName) {
   try {
-    var resolved = require.resolve(pathName);
+    var resolved = path.resolve(pathName);
   }
   catch (err) {
     error('Resolving the path has failed', err);
