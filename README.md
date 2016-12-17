@@ -52,6 +52,7 @@ I know 🎉
 ## TODO
 
 * sync interface for api
+* allow cli to work with multiple files
 
 ### License
 
