@@ -18,7 +18,6 @@
 var fs = require('fs');
 var path = require('path');
 
-var concat = require('concat-stream');
 var argv = require('yargs')
   .alias('o', 'output')
   .alias('h', 'help')
@@ -55,7 +54,7 @@ var esmall = new Esmall();
 esmall.on('error', (err) => {
   error('Minification failed', err);
   process.exit(1);
-})
+});
 
 if (process.stdin.isTTY) {
   input = fs.createReadStream(resolve(argv._[0]));
@@ -71,8 +70,8 @@ if (argv.o) {
   output = fs.createWriteStream(resolve(argv.o));
   output.on('error', (err) => {
     error('Error writing file', err);
-    process.exit(1)
-  })
+    process.exit(1);
+  });
 }
 else {
   output = process.stdout;
@@ -81,7 +80,7 @@ else {
 input
   .pipe(esmall)
   .pipe(output)
-  .on('end', _ => {
+  .on('end', () => {
     success('It worked 🎉');
   })
   .on('error', (err) => {
