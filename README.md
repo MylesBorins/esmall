@@ -2,6 +2,12 @@
 
 > a simple minifier for for es+ code
 
+## 📛 WARNING 📛
+
+This is super jank, likely to break your code.
+
+For best results use semi colons!
+
 ## How it works
 
 Does a little [reggae](https://twitter.com/thealphanerd/status/764133752905883649)

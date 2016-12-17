@@ -20,10 +20,11 @@ var esmall = require('../lib/');
 var code = `
   var a = '123';
   var b = '456';
-  console.log('a + b');
+  var c = 123456;
+  console.log('a + b * c / d');
 `;
 
-var expected = 'var a = \'123\';var b = \'456\';console.log(\'a + b\');';
+var expected = 'var a=\'123\';var b=\'456\';var c=123456;console.log(\'a+b*c/d\');';
 
 var licensedCode = `
 /* Copyright 2016 Myles Borins
@@ -43,17 +44,22 @@ var licensedCode = `
  
      var a = '123';
      var b = '456'; // this comment should be removed
-     console.log('a + b');      
+     var c =  123456;
+     console.log('a +         b * c / d');      
 `;
 
 var multiSpaceSemiColon = `
 var a = '123';      var b = '456'; // this comment should be removed
-console.log('a + b');  
+var c =  123456;
+console.log('a +b   * c     /  d');  
 `;
 
 var excessiveSpaces = `
 var a =    '123';      var b =    '456'; // this comment should be removed
-console.log('a    +    b');  
+var c =  123456;
+console.log('a    +
+
+b * c / d');  
    `;
 
 test('basic test', (t) => {
