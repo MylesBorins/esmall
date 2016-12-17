@@ -4,7 +4,7 @@
 
 ## How it works
 
-Just a little wrapper around [babili][babili] with a little [reggae][reggae] to deal with comments
+Just a little wrapper around [babili][babili]
 
 ## Using the cli
 
