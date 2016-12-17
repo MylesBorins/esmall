@@ -29,7 +29,7 @@ var argv = require('yargs')
   .help()
   .argv;
 
-// var path = require('path');
+var path = require('path');
 
 var esmall = require('../');
 var {success, error} = require('./logger');
@@ -59,7 +59,7 @@ function convertFile(err, data) {
 
 function handleMinified(err, minified) {
   if (!argv.o) {
-    console.log(minified);
+    process.stdout.write(minified);
     process.exit(0);
   }
   fs.writeFile(resolve(argv.o), minified, cleanup);
