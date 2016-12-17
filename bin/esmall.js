@@ -50,6 +50,7 @@ function resolve(pathName) {
 function minifyText(err, data) {
   if (err) {
     error('Something has gone wrong', err);
+    process.exit(1);
   }
   esmall(data.toString(), handleMinified);
 }
