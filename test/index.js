@@ -18,13 +18,14 @@ var test = require('tap').test;
 var esmall = require('../lib/');
 
 var code = `
-  var a = '123';
-  var b = '456';
+  var a = 213;
+  var b = 123;
   var c = 123456;
-  console.log('a + b * c / d');
+  var d = 2134;
+  console.log(a + b * c / d);
 `;
 
-var expected = 'var a=\'123\';var b=\'456\';var c=123456;console.log(\'a+b*c/d\');';
+var expected = 'var a=213,b=123,c=123456,d=2134;console.log(a+b*c/d);';
 
 var licensedCode = `
 /* Copyright 2016 Myles Borins
@@ -42,45 +43,16 @@ var licensedCode = `
  * limitations under the License.
  */
  
-     var a = '123';
-     var b = '456'; // this comment should be removed
-     var c =  123456;
-     console.log('a +         b * c / d');      
+ var a    = 213;
+       var b = 123;
+   var c = 123456;
+           var d = 2134
+      console.log(a + b * c / d);    
 `;
-
-var multiSpaceSemiColon = `
-var a = '123';      var b = '456'; // this comment should be removed
-var c =  123456;
-console.log('a +b   * c     /  d');  
-`;
-
-var excessiveSpaces = `
-var a =    '123';      var b =    '456'; // this comment should be removed
-var c =  123456;
-console.log('a    +
-
-b * c / d');  
-   `;
 
 test('basic test', (t) => {
   t.plan(2);
   esmall(code, (err, result) => {
-    t.error(err);
-    t.equals(result, expected, 'we should be minified');
-  });
-});
-
-test('more than one space after semi', (t) => {
-  t.plan(2);
-  esmall(multiSpaceSemiColon, (err, result) => {
-    t.error(err);
-    t.equals(result, expected, 'we should be minified');
-  });
-});
-
-test('no excessive spaces', (t) => {
-  t.plan(2);
-  esmall(excessiveSpaces, (err, result) => {
     t.error(err);
     t.equals(result, expected, 'we should be minified');
   });

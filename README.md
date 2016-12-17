@@ -2,15 +2,9 @@
 
 > a simple minifier for for es+ code
 
-## 📛 WARNING 📛
-
-This is super jank, likely to break your code.
-
-For best results use semi colons!
-
 ## How it works
 
-Does a little [reggae](https://twitter.com/thealphanerd/status/764133752905883649)
+Just a little wrapper around [babili][babili] with a little [reggae][reggae] to deal with comments
 
 ## Using the cli
 
@@ -44,3 +38,6 @@ I know 🎉
 ### License
 
 Apache v2.0
+
+[babili][https://github.com/babel/babili]
+[reggae][https://twitter.com/thealphanerd/status/764133752905883649]

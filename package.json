@@ -13,6 +13,8 @@
   "license": "Apache-2.0",
   "repository": "git+https://github.com/TheAlphaNerd/esmall.git",
   "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-preset-babili": "0.0.9",
     "chalk": "^1.1.3",
     "concat-stream": "^1.5.2",
     "yargs": "^6.5.0"
