@@ -54,7 +54,7 @@ console.log('a + b');
 var excessiveSpaces = `
 var a =    '123';      var b =    '456'; // this comment should be removed
 console.log('a    +    b');  
-`;
+   `;
 
 test('basic test', (t) => {
   t.plan(2);
