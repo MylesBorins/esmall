@@ -15,7 +15,7 @@ $ esmall input.js -o output.min.js // output to file
 $ cat path/to/file.js | esmall > this-works.min.js
 ```
 
-## Current API
+## API
 
 ### Callback API
 
