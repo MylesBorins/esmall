@@ -29,9 +29,7 @@ var argv = require('yargs')
   .help()
   .argv;
 
-var path = require('path');
-
-var esmall = require('../');
+var esmall = require('../lib');
 var {success, error} = require('./logger');
 
 if (argv._.length === 0) {

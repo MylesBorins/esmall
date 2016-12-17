@@ -15,7 +15,7 @@
 
 var test = require('tap').test;
 
-var esmall = require('../');
+var esmall = require('../lib/');
 
 var code = `
   var a = '123';
