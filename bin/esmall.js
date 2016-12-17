@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-/* eslint no-console: 0 */
-
 var fs = require('fs');
 var path = require('path');
 
