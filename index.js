@@ -18,7 +18,7 @@ function reggae(code) {
 }
 
 function isNotEmpty(code) {
-  return !(code === '');
+  return !((code === '') || (code === ' '));
 };
 
 function minify(code, cb) {
@@ -27,6 +27,7 @@ function minify(code, cb) {
     return false;
   }
   try {
+    code = code.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');
     code = code.split('\n');
     code = code.filter(isNotEmpty);
     code = code.map(reggae);
