@@ -17,6 +17,8 @@ $ cat path/to/file.js | esmall > this-works.min.js
 
 ## Current API
 
+### Callback API
+
 ```js
 var Esmall = require('esmall');
 var esmall = new Esmall({
@@ -28,15 +30,28 @@ esmall.minify('code', (e, min) => {
 });
 ```
 
+### Stream API
+
+```js
+var fs = require('fs');
+
+var Esmall = require('esmall');
+var esmall = new Esmall({
+  // put babili options here
+});
+
+fs.createReadStream('path/to/file.js')
+  .pipe(esmall)
+  .pipe(process.stdout);
+```
+
 ## This is gross
 
 I know 🎉
 
 ## TODO
 
-* stream interface for api
 * sync interface for api
-* embed babili
 
 ### License
 
