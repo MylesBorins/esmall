@@ -1,6 +1,6 @@
 {
   "name": "esmall",
-  "version": "4.0.7",
+  "version": "4.0.8",
   "description": "Pretty Naive",
   "main": "lib/index.js",
   "scripts": {
